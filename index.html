@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GNOME Project Dialog</title>
+    <style>
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Cantarell", "Ubuntu", sans-serif;
+      }
+
+      body {
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Dialog Container */
+      .dialog {
+        width: 100%;
+        height: 100vh;
+        background-color: #292929;
+        color: #ffffff;
+        overflow: hidden;
+      }
+
+      /* Dialog Header */
+      .dialog-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid #3d3d3d;
+      }
+
+      .dialog-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      /* Search Bar */
+      .search-container {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .search-bar {
+        width: 100%;
+        padding: 10px 16px;
+        background-color: #383838;
+        border: 1px solid #4a4a4a;
+        border-radius: 20px;
+        color: #ffffff;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-bar::placeholder {
+        color: #9a9a9a;
+      }
+
+      /* Projects Section Header */
+      .projects-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px 10px 20px;
+      }
+
+      .projects-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .learn-more {
+        color: #78aeed;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      /* Project List */
+      .project-list {
+        max-height: calc(
+          100vh - 210px
+        ); /* Adjust for header, search, title, and footer */
+        overflow-y: auto;
+      }
+
+      .project-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        border-top: 1px solid #3d3d3d;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .project-item:hover {
+        background-color: #333333;
+      }
+
+      .icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #b8b8b8;
+      }
+
+      .project-details {
+        flex: 1;
+      }
+
+      .project-name {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+
+      .project-description {
+        font-size: 12px;
+        color: #9a9a9a;
+      }
+
+      .project-tags {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+      }
+
+      .tag {
+        padding: 4px 10px;
+        background-color: #3d3d3d;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .tag.c {
+        background-color: #3d3d3d;
+      }
+
+      .tag.vala {
+        background-color: #3d3d3d;
+      }
+
+      .tag.javascript {
+        background-color: #3d3d3d;
+      }
+
+      .tag.python {
+        background-color: #3d3d3d;
+      }
+
+      .chevron {
+        margin-left: 8px;
+        color: #9a9a9a;
+      }
+
+      /* Footer */
+      .dialog-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-top: 1px solid #3d3d3d;
+      }
+
+      .footer-button {
+        background-color: #3d3d3d;
+        border: none;
+        border-radius: 6px;
+        color: #ffffff;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .footer-button:hover {
+        background-color: #4a4a4a;
+      }
+
+      /* Scrollbar styling */
+      .project-list::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .project-list::-webkit-scrollbar-track {
+        background: #292929;
+      }
+
+      .project-list::-webkit-scrollbar-thumb {
+        background: #3d3d3d;
+        border-radius: 5px;
+      }
+
+      .project-list::-webkit-scrollbar-thumb:hover {
+        background: #4a4a4a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dialog">
+      <div class="dialog-header">
+        <div class="dialog-title">Open a Project</div>
+      </div>
+
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Search all Builder projects..."
+        />
+      </div>
+
+      <div class="projects-header">
+        <div class="projects-title">Suggested GNOME Projects</div>
+        <a href="#" class="learn-more">Learn More...</a>
+      </div>
+
+      <div class="project-list">
+        <!-- Boxes -->
+        <ul id ="tools"></ul>
+
+
+      <div class="dialog-footer">
+        <button class="footer-button">Create New Project...</button>
+        <button class="footer-button">Select a Folder...</button>
+        <button class="footer-button">Clone Repository...</button>
+      </div>
+    </div>
+
+    <button id="myButton"></button>
+    <script src="listclicker.js">
+
+
+    </script>
+  </body>
+</html>
