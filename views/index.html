@@ -11,10 +11,23 @@
       content="default-src 'self'; script-src 'self'"
     />
     <link rel="stylesheet" href="css/index.css" />
-    <title>Hello from Electron renderer!</title>
+    <title>GitHub Desktop</title>
   </head>
   <body>
-    <h1>Hello from Electron renderer!</h1>
+    <header>
+      <nav class="navbar">
+        <button class="drawer-button" id="drawerButton">☰</button>
+        <div class="navbar-brand">Your Brand</div>
+        <button class="profile-button" id="profileButton">Profile</button>
+      </nav>
+    </header>
+    <div class="drawer" id="drawer">
+      <button class="drawer-close" id="drawerClose">close</button>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
   </body>
   <script src="js/index.js"></script>
 </html>
