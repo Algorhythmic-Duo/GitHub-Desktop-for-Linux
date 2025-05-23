@@ -2,13 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' https://avatars.githubusercontent.com; style-src 'self' 'unsafe-inline';"
     />
     <link rel="stylesheet" href="css/index.css" />
     <title>GitHub Desktop</title>
@@ -18,7 +15,7 @@
       <nav class="navbar">
         <button class="drawer-button" id="drawerButton">☰</button>
         <div class="navbar-brand">Your Brand</div>
-        <button class="profile-button" id="profileButton">Profile</button>
+        <div id="github-profile"></div>
       </nav>
     </header>
     <div class="drawer" id="drawer">
@@ -28,6 +25,7 @@
       <a href="#">Services</a>
       <a href="#">Contact</a>
     </div>
+    <script src="js/index.js"></script>
+    <script src="js/github.js"></script>
   </body>
-  <script src="js/index.js"></script>
 </html>
