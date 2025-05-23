@@ -53,3 +53,32 @@ body {
 .navbar-brand {
   padding: 10px 20px;
 }
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-title {
+  margin-left: 5px;
+}
+
+.inbox {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 10px;
+  border: 1px solid #a8a7a7; /* Added border style */
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.avatar-user {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 20px;
+}

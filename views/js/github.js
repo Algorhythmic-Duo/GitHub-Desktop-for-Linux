@@ -12,7 +12,7 @@ async function showGitHubProfile() {
     const username  = await findAccountOwner();
     const data = await getGitHubProfile(username);
     document.getElementById("github-profile").innerHTML = `
-      <img src="${data.avatar_url}" width="48" height="48" style="border-radius:50%;vertical-align:middle;" />
+      <img src="${data.avatar_url}" class="avatar-user" />
     `;
   } catch (err) {
     document.getElementById(
@@ -43,5 +43,7 @@ async function findAccountOwner() {
 }
 // Run on load for your username
 document.addEventListener("DOMContentLoaded", () => {
+  showGitHubProfile("MathewsVinoy");
 showGitHubProfile(); // Set your GitHub username here
 });
+//
