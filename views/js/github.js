@@ -1,4 +1,5 @@
 // js/github.js
+const { exec } = require('child_process');
 
 async function getGitHubProfile(username) {
   const response = await fetch(`https://api.github.com/users/${username}`);
@@ -6,8 +7,9 @@ async function getGitHubProfile(username) {
   return await response.json();
 }
 
-async function showGitHubProfile(username) {
+async function showGitHubProfile() {
   try {
+    const username  = await findAccountOwner();
     const data = await getGitHubProfile(username);
     document.getElementById("github-profile").innerHTML = `
       <img src="${data.avatar_url}" width="48" height="48" style="border-radius:50%;vertical-align:middle;" />
@@ -19,7 +21,27 @@ async function showGitHubProfile(username) {
   }
 }
 
+async function findAccountOwner() {
+  return new Promise((resolve, reject) => {
+    exec("gh api user --jq '.login'", (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing command: ${error.message}`);
+        reject(error);
+        return;
+      }
+      if (stderr) {
+        console.error(`Command stderr: ${stderr}`);
+        reject(new Error(stderr));
+        return;
+      }
+
+      // Resolve the promise with the command output
+      resolve(stdout.trim());
+      
+    });
+  });
+}
 // Run on load for your username
 document.addEventListener("DOMContentLoaded", () => {
-  showGitHubProfile("MathewsVinoy"); // Set your GitHub username here
+showGitHubProfile(); // Set your GitHub username here
 });
