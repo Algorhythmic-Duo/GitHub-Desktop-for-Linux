@@ -1,38 +1,31 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
-const { ipcMain } = require('electron');
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
 let mainWindow;
-// let projectwindow;
 
-app.on('ready', () => {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      preload: path.join(__dirname,'preload.js'),
+      contextIsolation: false,
     },
   });
-    app.commandLine.appendSwitch('disable-hardware-acceleration');
-    app.commandLine.appendSwitch('disable-gpu');
 
-  mainWindow.loadFile('index.html');
-});
-app.on('window-all-closed',() =>{
-  app.quit();
-});
+  mainWindow.loadFile(path.join(__dirname, "views/index.html"));
 
-// projectwindow = new BrowserWindow({
-//   width:800,
-//   height:600,
-// })
+  mainWindow.on("closed", function () {
+    mainWindow = null;
+  });
+}
 
+app.on("ready", createWindow);
 
-ipcMain.on('button-click', (_event, data) => {
-    console.log('Button click received in main process:', data);
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on('list-item-click', (_event, data) => {
-    console.log('List item click received in main process:', data);
+app.on("activate", function () {
+  if (mainWindow === null) createWindow();
 });
