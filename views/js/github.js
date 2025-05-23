@@ -1,5 +1,3 @@
-// js/github.js
-
 async function getGitHubProfile(username) {
   const response = await fetch(`https://api.github.com/users/${username}`);
   if (!response.ok) throw new Error("User not found");
@@ -10,7 +8,7 @@ async function showGitHubProfile(username) {
   try {
     const data = await getGitHubProfile(username);
     document.getElementById("github-profile").innerHTML = `
-      <img src="${data.avatar_url}" width="48" height="48" style="border-radius:50%;vertical-align:middle;" />
+      <img src="${data.avatar_url}" class="avatar-user" />
     `;
   } catch (err) {
     document.getElementById(
@@ -19,7 +17,7 @@ async function showGitHubProfile(username) {
   }
 }
 
-// Run on load for your username
 document.addEventListener("DOMContentLoaded", () => {
-  showGitHubProfile("MathewsVinoy"); // Set your GitHub username here
+  showGitHubProfile("MathewsVinoy");
 });
+//
