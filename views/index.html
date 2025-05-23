@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' https://avatars.githubusercontent.com; style-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <title>GitHub Desktop</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <button class="drawer-button" id="drawerButton">☰</button>
+        <div class="navbar-brand">Your Brand</div>
+        <div id="github-profile"></div>
+      </nav>
+    </header>
+    <div class="drawer" id="drawer">
+      <button class="drawer-close" id="drawerClose">close</button>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/github.js"></script>
+  </body>
+</html>
