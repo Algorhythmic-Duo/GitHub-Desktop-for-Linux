@@ -1,19 +1,28 @@
-document.getElementById("drawerButton").addEventListener("click", function () {
-  const drawer = document.getElementById("drawer");
-  if (drawer.style.width === "250px") {
-    drawer.style.width = "0";
+// Drawer functionality
+const drawerButton = document.getElementById("drawerButton");
+const drawerClose = document.getElementById("drawerClose");
+const drawer = document.getElementById("drawer");
+const main = document.querySelector("main");
+
+function toggleDrawer() {
+  drawer.classList.toggle("open");
+  if (drawer.classList.contains("open")) {
+    main.style.marginLeft = "280px";
   } else {
-    drawer.style.width = "250px";
+    main.style.marginLeft = "0";
   }
-});
-document.getElementById("drawerClose").addEventListener("click", function () {
-  const drawer = document.getElementById("drawer");
-  if (drawer.style.width === "250px") {
-    drawer.style.width = "0";
-  } else {
-    drawer.style.width = "250px";
+}
+
+drawerButton.addEventListener("click", toggleDrawer);
+drawerClose.addEventListener("click", toggleDrawer);
+
+// Close drawer when clicking outside
+document.addEventListener("click", (e) => {
+  if (
+    !drawer.contains(e.target) &&
+    !drawerButton.contains(e.target) &&
+    drawer.classList.contains("open")
+  ) {
+    toggleDrawer();
   }
-});
-document.getElementById("profileButton").addEventListener("click", function () {
-  alert("Profile button clicked!");
 });
