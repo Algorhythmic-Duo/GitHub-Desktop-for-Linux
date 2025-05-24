@@ -1,7 +1,9 @@
+const { exec } = require('child_process');
 async function loadGitHubProfile() {
   try {
     // Using a sample user for demonstration
-    const response = await fetch("https://api.github.com/users/MathewsVinoy");
+    const username = await findAccountOwner();
+    const response = await fetch(`https://api.github.com/users/${username}`);
     const userData = await response.json();
 
     document.getElementById("user-avatar").src = userData.avatar_url;
