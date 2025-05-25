@@ -1,0 +1,341 @@
+.new-repo-btn {
+  background-color: #238636; /* Green background */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth hover effects */
+  display: flex; /* For icon and text alignment */
+  align-items: center;
+  gap: 8px;
+}
+
+.new-repo-btn:hover {
+  background-color: #2ea043; /* Darker green on hover */
+  transform: translateY(-1px); /* Slight lift on hover */
+}
+
+.new-repo-btn svg {
+  fill: white; /* Fill the SVG icon with white */
+}
+
+/* Main content area styling: centered and padded */
+.main-content {
+  max-width: 1200px;
+  margin: 24px auto; /* Center horizontally with top/bottom margin */
+  padding: 0 24px; /* Horizontal padding */
+  flex-grow: 1; /* Allows it to take available space */
+}
+
+/* Filters section styling: flex layout, gap, bottom border */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #21262d; /* Separator line */
+  flex-wrap: wrap; /* Allow filters to wrap on smaller screens */
+}
+
+/* Filter button styling */
+.filter-btn {
+  background: transparent;
+  border: none;
+  color: #7d8590; /* Grey text color */
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease; /* Smooth transitions */
+}
+
+.filter-btn.active {
+  background-color: #21262d; /* Darker background for active button */
+  color: #e6edf3; /* Light text for active button */
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for active state */
+}
+
+.filter-btn:hover:not(.active) {
+  background-color: #161b22; /* Darker background on hover */
+  color: #e6edf3;
+}
+
+/* Sort dropdown styling */
+.sort-dropdown {
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  color: #e6edf3;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: auto; /* Pushes dropdown to the right */
+  appearance: none; /* Remove default dropdown arrow */
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e6edf3' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M8 10.5L4.5 7h7L8 10.5z'/%3E%3C/svg%3E"); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px; /* Space for the custom arrow */
+}
+
+.sort-dropdown:focus {
+  outline: none;
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
+}
+
+/* Repository list styling: column layout with gap, rounded corners, and border */
+.repo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* Small gap between items to create a subtle separation */
+  background-color: #21262d; /* Background for the list container */
+  border-radius: 8px;
+  overflow: hidden; /* Ensures rounded corners apply to children */
+  border: 1px solid #30363d; /* Outer border for the list */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow for the list */
+}
+
+/* Individual repository item styling */
+.repo-item {
+  background-color: #0d1117; /* Dark background for each item */
+  padding: 20px 24px;
+  border-bottom: 1px solid #21262d; /* Separator between items */
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth hover effects */
+  cursor: pointer;
+}
+
+.repo-item:hover {
+  background-color: #161b22; /* Lighter background on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* More pronounced shadow on hover */
+  z-index: 1; /* Bring hovered item to front */
+}
+
+/* Remove bottom border for the last repository item */
+.repo-item:last-child {
+  border-bottom: none;
+}
+
+/* Repository header styling: flex layout, alignment, and bottom margin */
+.repo-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  gap: 10px; /* Gap between name section and actions */
+}
+
+/* Repository name section: flex layout for status indicator, name, and visibility */
+.repo-name-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Repository name link styling */
+.repo-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #58a6ff; /* Blue link color */
+  text-decoration: none;
+}
+
+.repo-name:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Repository visibility tag styling */
+.repo-visibility {
+  background-color: #21262d;
+  color: #7d8590;
+  padding: 2px 6px;
+  border-radius: 12px; /* Pill shape */
+  font-size: 11px;
+  border: 1px solid #30363d;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Private repository visibility specific styling */
+.repo-visibility.private {
+  color: #f85149; /* Red color for private */
+  border-color: #f85149;
+  background-color: rgba(248, 81, 73, 0.1); /* Light red background */
+}
+
+/* Repository actions section: flex layout for buttons */
+.repo-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Star button styling */
+.star-btn {
+  background-color: #21262d;
+  border: 1px solid #30363d;
+  color: #e6edf3;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.star-btn:hover:not(.starred) {
+  background-color: #30363d; /* Darker background on hover */
+}
+
+/* Starred button specific styling */
+.star-btn.starred {
+  background-color: rgba(255, 211, 61, 0.1); /* Light yellow background */
+  border-color: #ffd33d; /* Yellow border */
+  color: #ffd33d; /* Yellow text */
+}
+
+/* Repository description styling */
+.repo-description {
+  color: #7d8590;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Repository meta information styling: flex layout and gap */
+.repo-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #7d8590;
+  flex-wrap: wrap; /* Allow meta items to wrap */
+}
+
+/* Individual meta item styling */
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Language color dot styling */
+.language-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%; /* Circular shape */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for visibility */
+}
+
+/* Updated time styling: pushed to the right */
+.updated-time {
+  margin-left: auto;
+}
+
+/* Status indicator dot styling */
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Active status indicator color */
+.status-active {
+  background-color: #238636; /* Green */
+}
+
+/* Inactive status indicator color */
+.status-inactive {
+  background-color: #7d8590; /* Grey */
+}
+
+/* Responsive adjustments for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 16px;
+    flex-direction: column; /* Stack header items vertically */
+    gap: 16px;
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .search-container {
+    width: 100%; /* Full width for search on small screens */
+    justify-content: space-between; /* Space out search input and new button */
+  }
+
+  .search-input {
+    width: calc(100% - 70px); /* Adjust width to make space for the button */
+  }
+
+  .main-content {
+    padding: 0 16px; /* Reduced horizontal padding */
+  }
+
+  .filters {
+    flex-wrap: wrap; /* Allow filters to wrap */
+    justify-content: center; /* Center filters */
+    gap: 10px; /* Smaller gap for filters */
+  }
+
+  .sort-dropdown {
+    margin-left: 0; /* Remove auto margin */
+    width: 100%; /* Full width for dropdown */
+  }
+
+  .repo-item {
+    padding: 16px; /* Reduced padding for repo items */
+  }
+
+  .repo-header {
+    flex-direction: column; /* Stack header elements vertically */
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .repo-actions {
+    width: 100%; /* Full width for actions */
+    justify-content: flex-end; /* Push star button to the right */
+  }
+
+  .repo-meta {
+    flex-direction: column; /* Stack meta items vertically */
+    align-items: flex-start;
+    gap: 8px; /* Smaller gap for meta items */
+  }
+
+  .updated-time {
+    margin-left: 0; /* Remove auto margin */
+  }
+}
+
+/* Overlay to dim background when drawer is open */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 999; /* Below drawer, above main content */
+  display: none; /* Hidden by default */
+}
+
+/* State when the overlay is active (visible) */
+.overlay.active {
+  display: block; /* Makes the overlay visible */
+}
+
+/* Body class to prevent scrolling when drawer is open */
+body.drawer-open {
+  overflow: hidden; /* Prevents scrolling on the main body */
+}
