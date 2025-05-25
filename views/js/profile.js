@@ -12,6 +12,7 @@ async function updateMainContent() {
   const response = await fetch("https://api.github.com/users/MathewsVinoy");
   const userData = await response.json();
   const mainContent = document.querySelector("main");
+  const readme = await userData.repos_url;
 
   const newContent = `
       <div class="profile-container">
