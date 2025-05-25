@@ -1,5 +1,6 @@
 // Tab switching functionalit
-// const { findAccountOwner } = require('./github');
+// const { findAccountOwner } = require('./account.js');
+
 document.querySelectorAll(".profile-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     document

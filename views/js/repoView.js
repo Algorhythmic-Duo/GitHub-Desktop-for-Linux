@@ -4,10 +4,10 @@ async function repoView() {
     console.error("Main content element not found.");
     return;
   }
-
+  const username = await findAccountOwner()
   // Fetch public repositories for the user
   const response = await fetch(
-    `https://api.github.com/users/MathewsVinoy/repos`
+    `https://api.github.com/users/${username}/repos`
   );
   const repos = await response.json();
 
