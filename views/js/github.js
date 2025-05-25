@@ -1,4 +1,6 @@
 const { exec } = require('child_process');
+// const { findAccountOwner } = require('./account');
+
 async function loadGitHubProfile() {
   try {
     // Using a sample user for demonstration
@@ -69,3 +71,7 @@ async function findAccountOwner() {
     });
   });
 }
+
+module.exports = {
+  findAccountOwner,
+};

@@ -1,4 +1,5 @@
 // Tab switching functionalit
+// const { findAccountOwner } = require('./github');
 document.querySelectorAll(".profile-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     document
@@ -8,9 +9,25 @@ document.querySelectorAll(".profile-tab").forEach((tab) => {
   });
 });
 
+// Use an async function to handle the promise
+async function getUsername() {
+  try {
+    // Wait for the findAccountOwner function to resolve and store the result in username
+    const username = await findAccountOwner();
+    console.log(`Account owner: ${username}`);
+    return username;
+    // You can now use the `username` variable as needed
+  } catch (err) {
+    console.error(`Error finding account owner: ${err}`);
+  }
+}
+
+
 async function updateMainContent() {
-  const response = await fetch("https://api.github.com/users/MathewsVinoy");
+  const username = await getUsername();
+  const response = await fetch(`https://api.github.com/users/${username}`);
   const userData = await response.json();
+  console.log(userData);
   const mainContent = document.querySelector("main");
   const readme = await userData.repos_url;
 
