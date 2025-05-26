@@ -1,12 +1,12 @@
 // const { exec } = require('child_process');
 // const { findAccountOwner } = require('./account');
 // const { findAccountOwner } = require('./account.js');
+import getUsername from "./account.js";
 async function loadGitHubProfile() {
   try {
     // Using a sample user for demonstration
-    const username = await findAccountOwner();
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    const userData = await response.json();
+
+    const userData = await getUsername();
 
     document.getElementById("user-avatar").src = userData.avatar_url;
     document.getElementById("user-avatar").alt = `${userData.login}'s avatar`;
@@ -50,7 +50,6 @@ style.textContent = `
   `;
 document.head.appendChild(style);
 
-
 // async function findAccountOwner() {
 //   return new Promise((resolve, reject) => {
 //     exec("gh api user --jq '.login'", (error, stdout, stderr) => {
@@ -67,7 +66,7 @@ document.head.appendChild(style);
 
 //       // Resolve the promise with the command output
 //       resolve(stdout.trim());
-      
+
 //     });
 //   });
 // }
@@ -75,5 +74,3 @@ document.head.appendChild(style);
 // module.exports = {
 //   findAccountOwner,
 // };
-
-

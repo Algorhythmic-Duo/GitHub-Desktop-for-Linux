@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec } = require("child_process");
 
 async function findAccountOwner() {
   return new Promise((resolve, reject) => {
@@ -13,12 +13,21 @@ async function findAccountOwner() {
         reject(new Error(stderr));
         return;
       }
-
-      // Resolve the promise with the command output
-
       resolve(stdout.trim());
-      
     });
   });
-};
-findAccountOwner();
+}
+
+async function getUsername() {
+  try {
+    const username = await findAccountOwner();
+    const response = await fetch(`https://api.github.com/users/${username}`);
+    const userData = await response.json();
+    return userData;
+  } catch (err) {
+    console.error(`Error finding account owner: ${err}`);
+    throw err; // Re-throw the error to handle it further up the chain if needed
+  }
+}
+
+export default getUsername;

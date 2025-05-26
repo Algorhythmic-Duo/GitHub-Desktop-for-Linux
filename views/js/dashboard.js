@@ -1,8 +1,10 @@
-async function DashView() {
+// dashboard.js
+
+function DashView() {
   const mainContent = document.querySelector("main");
 
   const newContent = `
- <div class="welcome-section">
+    <div class="welcome-section">
         <h1 class="welcome-title">Welcome to GitHub Desktop</h1>
         <p class="welcome-subtitle">Manage your repositories with ease</p>
         <div class="quick-actions">
@@ -109,8 +111,17 @@ async function DashView() {
           </div>
         </div>
       </div>
-      `;
+  `;
 
   // Update the main content
   mainContent.innerHTML = newContent;
 }
+
+// Attach DashView to the global scope
+window.DashView = DashView;
+
+// Call the DashView function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Optionally call DashView here if you want it to load automatically
+  // DashView();
+});

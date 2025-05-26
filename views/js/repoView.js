@@ -1,15 +1,14 @@
+// repoView.js
+import getUsername from "./account.js";
+
 async function repoView() {
   const mainContent = document.querySelector("main");
   if (!mainContent) {
     console.error("Main content element not found.");
     return;
   }
-  const username = await findAccountOwner()
-  // Fetch public repositories for the user
-  const response = await fetch(
-    `https://api.github.com/users/${username}/repos`
-  );
-  const repos = await response.json();
+
+  const repos = await getUsername();
 
   if (!Array.isArray(repos)) {
     mainContent.innerHTML = `<p>Error fetching repositories.</p>`;
@@ -82,3 +81,12 @@ async function repoView() {
 
   mainContent.innerHTML = newContent;
 }
+
+// Attach repoView to the global scope
+window.repoView = repoView;
+
+// Call the repoView function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Optionally call repoView here if you want it to load automatically
+  // repoView();
+});
