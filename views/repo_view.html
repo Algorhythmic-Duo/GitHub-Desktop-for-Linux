@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Repositories</title>
+    <link rel="stylesheet" href="css/repo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <button
+          class="drawer-button"
+          id="drawerButton"
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+        <div class="github-logo">
+          <svg
+            height="32"
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            version="1.1"
+            width="32"
+            data-view-component="true"
+            class="octicon octicon-mark-github"
+          >
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="page-title">Your repositories</div>
+      </div>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Find a repository..."
+        />
+        <button class="new-repo-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-folder-plus"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311L.5 6h-.5l.04.87a1.99 1.99 0 0 0-.342 1.311L.5 9h-.5l.04.87a1.99 1.99 0 0 0-.342 1.311L.5 12h-.5V3zm0 0h-.5V2a1 1 0 0 1 1-1h3.932a1 1 0 0 1 .795.337L9.748 4H14a2 2 0 0 1 2 2v1H.5z"
+            />
+            <path
+              d="M12 9.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2.5 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+          New
+        </button>
+      </div>
+    </header>
+    <aside class="drawer" id="drawer">
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+        ✕
+      </button>
+      <nav aria-label="Secondary navigation">
+        <a href="index.html">
+          <i class="fas fa-home"></i>
+          Dashboard
+        </a>
+        <a href="#" class="active">
+          <i class="fas fa-code-branch"></i>
+          Repositories
+        </a>
+        <a href="#">
+          <i class="fas fa-users"></i>
+          Organizations
+        </a>
+        <a href="#">
+          <i class="fas fa-star"></i>
+          Starred
+        </a>
+        <a href="#">
+          <i class="fas fa-history"></i>
+          History
+        </a>
+        <a href="#">
+          <i class="fas fa-cog"></i>
+          Settings
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="main-content">
+      <div class="filters">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Public</button>
+        <button class="filter-btn">Private</button>
+        <button class="filter-btn">Sources</button>
+        <button class="filter-btn">Forks</button>
+        <button class="filter-btn">Archived</button>
+        <select class="sort-dropdown">
+          <option>Recently updated</option>
+          <option>Name</option>
+          <option>Stars</option>
+          <option>Recently created</option>
+        </select>
+      </div>
+
+      <div class="repo-list">
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-active"></div>
+              <a href="#" class="repo-name">awesome-project</a>
+              <span class="repo-visibility">Public</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn starred">⭐ 142</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            A comprehensive web application showcasing modern development
+            practices with React and TypeScript. Features include real-time
+            updates, responsive design, and comprehensive testing.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #f1e05a"></div>
+              JavaScript
+            </div>
+            <div class="meta-item">⭐ 142</div>
+            <div class="meta-item">🍴 23</div>
+            <div class="updated-time">Updated 2 hours ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-active"></div>
+              <a href="#" class="repo-name">web-portfolio</a>
+              <span class="repo-visibility">Public</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn">⭐ 28</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            Personal portfolio website built with modern web technologies.
+            Showcases projects, skills, and professional experience with a
+            clean, responsive design.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #3178c6"></div>
+              TypeScript
+            </div>
+            <div class="meta-item">⭐ 28</div>
+            <div class="meta-item">🍴 5</div>
+            <div class="updated-time">Updated yesterday</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-active"></div>
+              <a href="#" class="repo-name">data-analysis</a>
+              <span class="repo-visibility">Public</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn">⭐ 67</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            Python scripts and Jupyter notebooks for data analysis and
+            visualization. Includes examples of machine learning models and
+            statistical analysis techniques.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #3776ab"></div>
+              Python
+            </div>
+            <div class="meta-item">⭐ 67</div>
+            <div class="meta-item">🍴 12</div>
+            <div class="updated-time">Updated 3 days ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-inactive"></div>
+              <a href="#" class="repo-name">mobile-app</a>
+              <span class="repo-visibility private">Private</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn">⭐ 8</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            Cross-platform mobile application built with React Native. Features
+            user authentication, real-time messaging, and offline data
+            synchronization.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #f1e05a"></div>
+              JavaScript
+            </div>
+            <div class="meta-item">⭐ 8</div>
+            <div class="meta-item">🍴 2</div>
+            <div class="updated-time">Updated 1 week ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-active"></div>
+              <a href="#" class="repo-name">api-server</a>
+              <span class="repo-visibility">Public</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn">⭐ 91</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            RESTful API server built with Node.js and Express. Includes user
+            authentication, database integration, and comprehensive API
+            documentation.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #f1e05a"></div>
+              JavaScript
+            </div>
+            <div class="meta-item">⭐ 91</div>
+            <div class="meta-item">🍴 18</div>
+            <div class="updated-time">Updated 2 weeks ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header">
+            <div class="repo-name-section">
+              <div class="status-indicator status-inactive"></div>
+              <a href="#" class="repo-name">learning-resources</a>
+              <span class="repo-visibility">Public</span>
+            </div>
+            <div class="repo-actions">
+              <button class="star-btn starred">⭐ 234</button>
+            </div>
+          </div>
+          <div class="repo-description">
+            Curated collection of learning resources for web development,
+            including tutorials, articles, and useful tools for developers at
+            all levels.
+          </div>
+          <div class="repo-meta">
+            <div class="meta-item">
+              <div class="language-dot" style="background-color: #083fa1"></div>
+              Markdown
+            </div>
+            <div class="meta-item">⭐ 234</div>
+            <div class="meta-item">🍴 45</div>
+            <div class="updated-time">Updated 1 month ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/repo_drawer.js"></script>
+</html>
