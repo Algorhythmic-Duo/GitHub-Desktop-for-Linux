@@ -23,6 +23,43 @@ async function getUsername() {
   }
 }
 
+function timeAgo(timestamp) {
+    const now = new Date();
+    const pastDate = new Date(timestamp);
+
+    // Check if the date is valid
+    if (isNaN(pastDate.getTime())) {
+        return "Invalid date";
+    }
+
+    const seconds = Math.floor((now - pastDate) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (years > 0) {
+        return years === 1 ? "a year ago" : `${years} years ago`;
+    } else if (months > 0) {
+        return months === 1 ? "a month ago" : `${months} months ago`;
+    } else if (weeks > 0) {
+        return weeks === 1 ? "a week ago" : `${weeks} weeks ago`;
+    } else if (days > 0) {
+        return days === 1 ? "a day ago" : `${days} days ago`;
+    } else if (hours > 0) {
+        return hours === 1 ? "an hour ago" : `${hours} hours ago`;
+    } else if (minutes > 0) {
+        return minutes === 1 ? "a minute ago" : `${minutes} minutes ago`;
+    } else {
+        return seconds <= 10 ? "just now" : `${seconds} seconds ago`;
+    }
+}
+
+// Example usage
+
+
 
 async function updateMainContent() {
   const username = await getUsername();
@@ -192,4 +229,71 @@ async function updateMainContent() {
 
   // Update the main content
   mainContent.innerHTML = newContent;
+   await updateListContent();
 }
+
+async function updateListContent(){
+const response = await fetch("https://api.github.com/users/aivinjinu/repos?sort=stars");
+  const repos = await response.json();
+  console.log(repos);
+  listContent = document.querySelector("div.repositories-section");
+//   const readme = await userData.repos_url;
+
+if (!Array.isArray(repos)) {
+    mainContent.innerHTML = `<p>Error fetching repositories.</p>`;
+    return;
+  }
+
+  // Generate HTML for all repos
+  const repoItems = repos
+    .map(
+      (repo) => `
+   
+                  <div class="repo-card">
+                      <div class="repo-header">
+                          <a href="#" class="repo-name">${repo.name}</a>
+                          <span class="repo-badge">Public</span>
+                      </div>
+                      <div class="repo-description">${repo.description == null ? "No description" :repo.description}</div>
+                      <div class="repo-meta">
+
+                          ${repo.language !== null ? `<div class="repo-meta-item"><div class="language-dot" style="background-color: #3178c6;"></div>${repo.language}</div>` :``}
+                             
+               
+                          <div class="repo-meta-item">
+                              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <path d="M8 .5a.5.5 0 01.5.5v1.5a6.5 6.5 0 110 13v1.5a.5.5 0 01-1 0V14.5A6.5 6.5 0 117.5 1V.5a.5.5 0 01.5-.5z"></path>
+                              </svg>
+                              892
+                          </div>
+                          <div class="repo-meta-item">
+                              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                  <path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878z"></path>
+                              </svg>
+                              156
+                          </div>
+                          <span>Updated ${timeAgo(repo.updated_at)}</span>
+                      </div>
+                  </div>
+  `
+    )
+    .join("");
+
+  // Final content with filter UI + repo list
+  const newContent = `
+            
+              <div class="repositories-section">
+                  <div class="section-header">
+                      <h2 class="section-title">Popular repositories</h2>
+                  </div>
+                  
+                     ${repoItems}
+                  
+              </div>
+     
+  `;
+
+  listContent.innerHTML = newContent;
+}
+
+
