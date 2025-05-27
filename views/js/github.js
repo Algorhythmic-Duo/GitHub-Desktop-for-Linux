@@ -1,6 +1,4 @@
-// const { exec } = require('child_process');
-// const { findAccountOwner } = require('./account');
-// const { findAccountOwner } = require('./account.js');
+
 import { getUsername } from "./account.js";
 async function loadGitHubProfile() {
   try {
@@ -49,28 +47,3 @@ style.textContent = `
       }
   `;
 document.head.appendChild(style);
-
-// async function findAccountOwner() {
-//   return new Promise((resolve, reject) => {
-//     exec("gh api user --jq '.login'", (error, stdout, stderr) => {
-//       if (error) {
-//         console.error(`Error executing command: ${error.message}`);
-//         reject(error);
-//         return;
-//       }
-//       if (stderr) {
-//         console.error(`Command stderr: ${stderr}`);
-//         reject(new Error(stderr));
-//         return;
-//       }
-
-//       // Resolve the promise with the command output
-//       resolve(stdout.trim());
-
-//     });
-//   });
-// }
-
-// module.exports = {
-//   findAccountOwner,
-// };

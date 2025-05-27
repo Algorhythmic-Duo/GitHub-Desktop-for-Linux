@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow,dialog, ipcMain} = require("electron");
 const path = require("path");
 
 let mainWindow;
@@ -9,13 +9,15 @@ function createWindow() {
     height: 600,
     autoHideMenuBar: true,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false,
+
     },
   });
 
   mainWindow.loadFile(path.join(__dirname, "views/index.html"));
-
+  
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
@@ -30,3 +32,12 @@ app.on("window-all-closed", function () {
 app.on("activate", function () {
   if (mainWindow === null) createWindow();
 });
+
+
+
+ipcMain.on('select-dirs', async (event, arg) => {
+  const result = await dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory']
+  })
+  console.log('directories selected', result.filePaths)
+})

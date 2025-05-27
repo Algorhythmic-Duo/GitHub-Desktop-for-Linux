@@ -8,11 +8,11 @@ function DashView() {
         <h1 class="welcome-title">Welcome to GitHub Desktop</h1>
         <p class="welcome-subtitle">Manage your repositories with ease</p>
         <div class="quick-actions">
-          <a href="#" class="btn">
+          <a href="#" class="btn btn-secondary">
             <i class="fas fa-plus"></i>
             Clone Repository
           </a>
-          <a href="#" class="btn btn-secondary">
+          <a href="#" class="btn btn-secondary" id="dirs">
             <i class="fas fa-folder-open"></i>
             Open Local Repository
           </a>
