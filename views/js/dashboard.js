@@ -1,7 +1,8 @@
-// dashboard.js
+import { getUsername } from "./account.js";
 
-function DashView() {
+async function DashView() {
   const mainContent = document.querySelector("main");
+  const userData = await getUsername();
 
   const newContent = `
     <div class="welcome-section">

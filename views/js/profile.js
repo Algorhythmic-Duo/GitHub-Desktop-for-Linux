@@ -48,7 +48,7 @@ function timeAgo(timestamp) {
 async function updateMainContent() {
   try {
     const userData = await getUsername();
-    console.log(userData);
+    // console.log(userData);
     const mainContent = document.querySelector("main");
 
     const newContent = `
