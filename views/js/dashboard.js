@@ -1,11 +1,46 @@
-import { getUsername } from "./account.js";
+import { getUsername, findAccountOwner } from "./account.js";
+import { Octokit } from "@octokit/rest";
+import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
+
+// Replace with actual credentials
+const CLIENT_ID = "your-client-id";
+const CLIENT_SECRET = "your-client-secret";
+
+async function createGitHubRepo(repoName, description, isPrivate) {
+  const octokit = new Octokit({
+    authStrategy: createOAuthAppAuth,
+    auth: {
+      clientId: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
+    },
+  });
+
+  try {
+    const response = await octokit.repos.createForAuthenticatedUser({
+      name: repoName,
+      description: description,
+      private: isPrivate,
+    });
+    console.log("Repository created successfully:", response.data.html_url);
+  } catch (error) {
+    console.error("Error creating repository:", error.message);
+  }
+}
 
 async function DashView() {
+  const userName = findAccountOwner(); // Optional: not used directly
   const mainContent = document.querySelector("main");
-  const userData = await getUsername();
 
-  const newContent = `
-    <div class="welcome-section">
+  if (!mainContent) {
+    console.error("Main content container not found.");
+    return;
+  }
+
+  try {
+    const userData = await getUsername();
+
+    const newContent = `
+      <div class="welcome-section">
         <h1 class="welcome-title">Welcome to GitHub Desktop</h1>
         <p class="welcome-subtitle">Manage your repositories with ease</p>
         <div class="quick-actions">
@@ -93,7 +128,7 @@ async function DashView() {
                 <div class="repo-name">Total Repositories</div>
                 <div class="repo-meta">Personal and collaborations</div>
               </div>
-              <div style="color: #58a6ff; font-weight: bold">24</div>
+              <div style="color: #58a6ff; font-weight: bold">${userData.public_repos}</div>
             </div>
             <div class="repo-item">
               <div>
@@ -112,14 +147,16 @@ async function DashView() {
           </div>
         </div>
       </div>
-  `;
+    `;
 
-  // Update the main content
-  mainContent.innerHTML = newContent;
+    mainContent.innerHTML = newContent;
+  } catch (err) {
+    console.error("Failed to load dashboard:", err.message);
+  }
 }
-DashView();
-// Attach DashView to the global scope
-window.DashView = DashView;
 
-// Call the DashView function when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {});
+// Ensure the function runs when DOM is ready
+document.addEventListener("DOMContentLoaded", DashView);
+
+// Optional: expose globally if needed
+window.DashView = DashView;
