@@ -116,12 +116,9 @@ function DashView() {
   // Update the main content
   mainContent.innerHTML = newContent;
 }
-
+DashView();
 // Attach DashView to the global scope
 window.DashView = DashView;
 
 // Call the DashView function when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-  // Optionally call DashView here if you want it to load automatically
-  // DashView();
-});
+document.addEventListener("DOMContentLoaded", () => {});

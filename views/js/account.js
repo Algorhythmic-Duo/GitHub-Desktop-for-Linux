@@ -30,4 +30,4 @@ async function getUsername() {
   }
 }
 
-export default getUsername;
+export { getUsername, findAccountOwner };

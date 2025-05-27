@@ -1,7 +1,7 @@
 // const { exec } = require('child_process');
 // const { findAccountOwner } = require('./account');
 // const { findAccountOwner } = require('./account.js');
-import getUsername from "./account.js";
+import { getUsername } from "./account.js";
 async function loadGitHubProfile() {
   try {
     // Using a sample user for demonstration

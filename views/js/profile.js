@@ -1,5 +1,5 @@
 // your-script.js
-import getUsername from "./account.js";
+import { getUsername } from "./account.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   document.querySelectorAll(".profile-tab").forEach((tab) => {
@@ -10,47 +10,48 @@ document.addEventListener("DOMContentLoaded", (event) => {
       tab.classList.add("active");
     });
   });
+});
 
-  function timeAgo(timestamp) {
-    const now = new Date();
-    const pastDate = new Date(timestamp);
+function timeAgo(timestamp) {
+  const now = new Date();
+  const pastDate = new Date(timestamp);
 
-    if (isNaN(pastDate.getTime())) {
-      return "Invalid date";
-    }
-
-    const seconds = Math.floor((now - pastDate) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const weeks = Math.floor(days / 7);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(days / 365);
-
-    if (years > 0) {
-      return years === 1 ? "a year ago" : `${years} years ago`;
-    } else if (months > 0) {
-      return months === 1 ? "a month ago" : `${months} months ago`;
-    } else if (weeks > 0) {
-      return weeks === 1 ? "a week ago" : `${weeks} weeks ago`;
-    } else if (days > 0) {
-      return days === 1 ? "a day ago" : `${days} days ago`;
-    } else if (hours > 0) {
-      return hours === 1 ? "an hour ago" : `${hours} hours ago`;
-    } else if (minutes > 0) {
-      return minutes === 1 ? "a minute ago" : `${minutes} minutes ago`;
-    } else {
-      return seconds <= 10 ? "just now" : `${seconds} seconds ago`;
-    }
+  if (isNaN(pastDate.getTime())) {
+    return "Invalid date";
   }
 
-  async function updateMainContent() {
-    try {
-      const userData = await getUsername();
-      console.log(userData);
-      const mainContent = document.querySelector("main");
+  const seconds = Math.floor((now - pastDate) / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
 
-      const newContent = `
+  if (years > 0) {
+    return years === 1 ? "a year ago" : `${years} years ago`;
+  } else if (months > 0) {
+    return months === 1 ? "a month ago" : `${months} months ago`;
+  } else if (weeks > 0) {
+    return weeks === 1 ? "a week ago" : `${weeks} weeks ago`;
+  } else if (days > 0) {
+    return days === 1 ? "a day ago" : `${days} days ago`;
+  } else if (hours > 0) {
+    return hours === 1 ? "an hour ago" : `${hours} hours ago`;
+  } else if (minutes > 0) {
+    return minutes === 1 ? "a minute ago" : `${minutes} minutes ago`;
+  } else {
+    return seconds <= 10 ? "just now" : `${seconds} seconds ago`;
+  }
+}
+
+async function updateMainContent() {
+  try {
+    const userData = await getUsername();
+    console.log(userData);
+    const mainContent = document.querySelector("main");
+
+    const newContent = `
         <div class="profile-container">
             <div class="profile-sidebar">
                 <div class="profile-avatar-wrapper">
@@ -199,30 +200,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
         </div>
       `;
 
-      mainContent.innerHTML = newContent;
-      await updateListContent();
-    } catch (err) {
-      console.error(`Error updating main content: ${err}`);
-    }
+    mainContent.innerHTML = newContent;
+    await updateListContent();
+  } catch (err) {
+    console.error(`Error updating main content: ${err}`);
   }
+}
 
-  async function updateListContent() {
-    try {
-      const response = await fetch(
-        "https://api.github.com/users/aivinjinu/repos?sort=stars"
-      );
-      const repos = await response.json();
-      console.log(repos);
-      const listContent = document.querySelector("div.repositories-section");
+async function updateListContent() {
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/aivinjinu/repos?sort=stars"
+    );
+    const repos = await response.json();
+    console.log(repos);
+    const listContent = document.querySelector("div.repositories-section");
 
-      if (!Array.isArray(repos)) {
-        listContent.innerHTML = `<p>Error fetching repositories.</p>`;
-        return;
-      }
+    if (!Array.isArray(repos)) {
+      listContent.innerHTML = `<p>Error fetching repositories.</p>`;
+      return;
+    }
 
-      const repoItems = repos
-        .map(
-          (repo) => `
+    const repoItems = repos
+      .map(
+        (repo) => `
             <div class="repo-card">
                 <div class="repo-header">
                     <a href="#" class="repo-name">${repo.name}</a>
@@ -253,10 +254,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 </div>
             </div>
           `
-        )
-        .join("");
+      )
+      .join("");
 
-      const newContent = `
+    const newContent = `
         <div class="repositories-section">
             <div class="section-header">
                 <h2 class="section-title">Popular repositories</h2>
@@ -265,12 +266,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
         </div>
       `;
 
-      listContent.innerHTML = newContent;
-    } catch (err) {
-      console.error(`Error updating list content: ${err}`);
-    }
+    listContent.innerHTML = newContent;
+  } catch (err) {
+    console.error(`Error updating list content: ${err}`);
   }
+}
 
-  // Call updateMainContent when needed
-  updateMainContent();
+window.updateMainContent = updateMainContent;
+
+// Call the repoView function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Optionally call repoView here if you want it to load automatically
+  // repoView();
 });
