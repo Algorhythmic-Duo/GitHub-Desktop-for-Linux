@@ -1,36 +1,13 @@
 import { getUsername, findAccountOwner } from "./account.js";
-import { Octokit } from "@octokit/rest";
-import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
+const { exec } = require("child_process");
 
-// Replace with actual credentials
-const CLIENT_ID = "your-client-id";
-const CLIENT_SECRET = "your-client-secret";
-
-async function createGitHubRepo(repoName, description, isPrivate) {
-  const octokit = new Octokit({
-    authStrategy: createOAuthAppAuth,
-    auth: {
-      clientId: CLIENT_ID,
-      clientSecret: CLIENT_SECRET,
-    },
-  });
-
-  try {
-    const response = await octokit.repos.createForAuthenticatedUser({
-      name: repoName,
-      description: description,
-      private: isPrivate,
-    });
-    console.log("Repository created successfully:", response.data.html_url);
-  } catch (error) {
-    console.error("Error creating repository:", error.message);
-  }
-}
+// Run dashboard on DOM ready
+document.addEventListener("DOMContentLoaded", DashView);
+window.DashView = DashView;
+window.openCreateRepoPage = openCreateRepoPage;
 
 async function DashView() {
-  const userName = findAccountOwner(); // Optional: not used directly
   const mainContent = document.querySelector("main");
-
   if (!mainContent) {
     console.error("Main content container not found.");
     return;
@@ -44,15 +21,7 @@ async function DashView() {
         <h1 class="welcome-title">Welcome to GitHub Desktop</h1>
         <p class="welcome-subtitle">Manage your repositories with ease</p>
         <div class="quick-actions">
-          <a href="#" class="btn">
-            <i class="fas fa-plus"></i>
-            Clone Repository
-          </a>
-          <a href="#" class="btn btn-secondary">
-            <i class="fas fa-folder-open"></i>
-            Open Local Repository
-          </a>
-          <a href="#" class="btn btn-secondary">
+          <a href="#" class="btn btn-secondary" onclick="openCreateRepoPage()">
             <i class="fas fa-plus-circle"></i>
             Create New Repository
           </a>
@@ -155,8 +124,94 @@ async function DashView() {
   }
 }
 
-// Ensure the function runs when DOM is ready
-document.addEventListener("DOMContentLoaded", DashView);
+async function getOrg() {
+  return new Promise((resolve, reject) => {
+    exec("gh org list", (error, stdout, stderr) => {
+      if (error || stderr) {
+        console.error(`Error: ${error?.message || stderr}`);
+        reject(error || new Error(stderr));
+        return;
+      }
+      resolve(stdout.trim());
+    });
+  });
+}
 
-// Optional: expose globally if needed
-window.DashView = DashView;
+async function openCreateRepoPage() {
+  const mainContent = document.querySelector("main");
+  const username = await findAccountOwner();
+  const orgs = await getOrg().catch(() => "");
+
+  const orgOptions = orgs
+    .split("\n")
+    .filter((org) => org.trim())
+    .map((org) => `<option value="${org}">${org}</option>`) // dropdown for organizations
+    .join("");
+
+  const newContent = `<div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Create a new repository</h1>
+      <p class="page-description">A repository contains all project files, including the revision history.</p>
+    </div>
+    <form class="form-container" id="repoForm">
+      <div class="form-group">
+        <label class="form-label">Owner <span class="required">*</span></label>
+        <div class="owner-section">
+          <select class="owner-select" id="owner">
+            <option value="${username}">${username}</option>
+            ${orgOptions}
+          </select>
+          <span class="separator">/</span>
+          <input type="text" class="form-input repo-name-input" id="repoName" placeholder="Repository name" required>
+          <div class="availability-indicator" id="availabilityIndicator"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description" class="form-label">Description <span style="color: #8b949e;">(optional)</span></label>
+        <input type="text" class="form-input" id="description" placeholder="A short description of your repository">
+      </div>
+      <div class="visibility-section">
+        <div class="visibility-title">Repository visibility</div>
+        <label><input type="radio" name="visibility" value="public" checked> Public</label>
+        <label><input type="radio" name="visibility" value="private"> Private</label>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn-primary" id="createBtn">Create repository</button>
+      </div>
+    </form> 
+  </div>`;
+
+  mainContent.innerHTML = newContent;
+
+  document.getElementById("repoForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const owner = document.getElementById("owner").value;
+    const repoName = document.getElementById("repoName").value;
+    const description = document.getElementById("description").value;
+    const visibility = document.querySelector(
+      "input[name='visibility']:checked"
+    ).value;
+    await createGitHubRepo(
+      `${owner}/${repoName}`,
+      description,
+      visibility === "private"
+    );
+  });
+}
+
+async function createGitHubRepo(repoName, description, isPrivate) {
+  const visibility = isPrivate ? "private" : "public";
+  const command = `gh repo create ${repoName} --${visibility} --description "${description}" --confirm`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error creating repo: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`GitHub CLI error: ${stderr}`);
+      return;
+    }
+    console.log(`Repo created successfully:\n${stdout}`);
+  });
+}
